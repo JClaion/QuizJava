@@ -1,0 +1,84 @@
+package quiz.classes;
+
+import quiz.enums.Dificuldade;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Pergunta {
+	
+	private String titulo;
+    private List<Alternativa> alternativas = new ArrayList<>();
+    private ArrayList<Integer> ordemSorteio = new ArrayList<>();
+    private int pontuacao;
+    private Dificuldade dificuldade;
+
+    public Pergunta(String titulo, Dificuldade dificuldade) {
+        this.titulo = titulo;
+        this.dificuldade = dificuldade;
+        if (dificuldade == Dificuldade.FACIL) this.pontuacao = 5;
+        if (dificuldade == Dificuldade.MEDIO) this.pontuacao = 10;
+        if (dificuldade == Dificuldade.DIFICIL) this.pontuacao = 15;
+    }
+    
+    public Pergunta addAlternativa(String descricao) {
+        this.alternativas.add(new Alternativa(descricao));
+        return this;
+    }
+    public Pergunta addAlternativa(String descricao, boolean correta) {
+        this.alternativas.add(new Alternativa(descricao, correta));            
+        return this;
+    }
+
+    public void embaralharAlternativas() {
+        ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
+
+        Random sorteia = new Random();
+        Integer numeroEscolhido;
+
+        for (int i = 0; i < alternativas.size(); i++) {
+            indicesDisponiveis.add(i);
+        }
+        for (int i = 0; i < alternativas.size(); i++) {
+            numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
+            numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);
+            ordemSorteio.add((int) numeroEscolhido);
+            indicesDisponiveis.remove(numeroEscolhido);
+            System.out.print(i+1 + " - ");
+            System.out.println(alternativas.get(numeroEscolhido).getDescricao());
+        }
+    }
+
+    public Dificuldade getDificuldade() {
+        return this.dificuldade;
+    }
+
+    public void setDificuldade(Dificuldade dificuldade) {
+        this.dificuldade = dificuldade;
+    }
+
+    public int getPontos() {
+        return pontuacao;
+    }
+
+    public void setPontos(int pontuacao) {
+        this.pontuacao = pontuacao;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String texto) {
+        this.titulo = texto;
+    }
+
+    public Alternativa getAlternativas(int pos) {
+        return alternativas.get(pos);
+    }
+
+    public void setAlternativas(List<Alternativa> alternativas) {
+        this.alternativas = alternativas;
+    }
+	
+}
