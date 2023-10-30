@@ -14,26 +14,26 @@ public class Jogador {
     private byte acertos;
     private LocalDate data;
 
-    public int escolherResposta() {
+    public byte escolherResposta() {
     	char resposta = '+';
 	    do {
     		resposta = sc.next().charAt(0);
 	        switch (resposta) {
 	        
 	            case '1':
-	                return 1;
+	                return 0;
 	            case '2':
-	                return 2;
+	                return 1;
 	            case '3':
-	                return 3;
+	                return 2;
 	            case '4':
-	                return 4;
+	                return 3;
 	            case 'p':
-	                return 0;
+	                return -1;
 	            case 'P':
-	                return 0;
+	                return -1;
 	            default:
-	                System.out.println("Erro Resposta invalida, digite uma opção válida");
+	                System.out.println("Opção invalida, digite uma opção válida");
 	                
 	        }
 	    }while(resposta != '1' && resposta != '2' && resposta != '3' && resposta != '4');

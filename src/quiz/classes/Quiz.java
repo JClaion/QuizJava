@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-
 public class Quiz {
 
     public String nickname;
@@ -14,11 +13,14 @@ public class Quiz {
     private int taxaAcerto;
     private int taxaErro;
     private int tempoResposta;
-    private Historico repo[];
+    private ArrayList<Historico> repo = new ArrayList<>();
 
-    public byte[] SorteioPergunta() {
+    public Quiz(ArrayList<Pergunta> perguntas) {
+    	this.listaPergunta = perguntas;
+    }
+    
+    public void SorteioPergunta() {
         ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
-        byte resp[] = new byte[listaPergunta.size()];
         Random sorteia = new Random();
         Integer numeroEscolhido;
         Scanner sc = new Scanner(System.in);
@@ -31,34 +33,50 @@ public class Quiz {
             indicesDisponiveis.remove(numeroEscolhido);
             System.out.println(listaPergunta.get(numeroEscolhido).getTitulo());
             listaPergunta.get(numeroEscolhido).embaralharAlternativas();
-            char respC = sc.next().charAt(0);
-            resp[i] = (byte) jogador.escolherResposta();
+            //Já vai adicionando a resposta ao Repo(Repositorio de repostas)
+            repo.add(
+            		new Historico(this.jogador, listaPergunta.get(numeroEscolhido), 
+            				listaPergunta.get(numeroEscolhido).getOrdemSorteio().get(this.jogador.escolherResposta()))
+            		);
+            if(repo.get(i).VerificarResposta()) {
+            	System.out.println("Alternativa Correta");
+            }
+            else {
+            	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao());
+            }
         }
-        return resp;
+        
     }
 
-    public byte[] SorteioPergunta(Dificuldade dif) {
+    public void SorteioPergunta(Dificuldade dif) {
         ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
         Random sorteia = new Random();
         Integer numeroEscolhido;
         Scanner sc = new Scanner(System.in);
         for (int i = 0; i < listaPergunta.size(); ++i) {
-            if (dif.equals(listaPergunta.get(i).getDificuldade())) {
+            if (dif == this.listaPergunta.get(i).getDificuldade()) {
                 indicesDisponiveis.add(i);
             }
+            System.out.println(indicesDisponiveis.size());
         }
-        // Variavel de retorno das resposatas para cálculo
-        byte resp[] = new byte[listaPergunta.size() - (listaPergunta.size() - indicesDisponiveis.size())];
-        for (int i = 0; i < listaPergunta.size() - (listaPergunta.size() - indicesDisponiveis.size()); ++i) {
+        for (int i = 0; i <= indicesDisponiveis.size(); ++i) {
             numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
             numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);
             indicesDisponiveis.remove(numeroEscolhido);
             System.out.println(listaPergunta.get(numeroEscolhido).getTitulo());
             listaPergunta.get(numeroEscolhido).embaralharAlternativas();
-            
-            resp[i] = (byte) jogador.escolherResposta();
+            //Já vai adicionando a resposta ao Repo(Repositorio de repostas)
+            repo.add(
+            		new Historico(this.jogador, listaPergunta.get(numeroEscolhido), 
+            				listaPergunta.get(numeroEscolhido).getOrdemSorteio().get(this.jogador.escolherResposta()))
+            		);
+            if(repo.get(i).VerificarResposta()) {
+            	System.out.println("Alternativa Correta");
+            }
+            else {
+            	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao());
+            }
         }
-        return resp;
     }
 
     public String getNickname() {
@@ -101,11 +119,11 @@ public class Quiz {
         this.taxaErro = taxaErro;
     }
 
-    public Historico[] getRepo() {
+    public ArrayList<Historico> getRepo() {
         return repo;
     }
 
-    public void setRepo(Historico[] repo) {
+    public void setRepo(ArrayList<Historico> repo) {
         this.repo = repo;
     }
 

@@ -6,7 +6,6 @@ import quiz.repository.Repositorio;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 public class Game {
 
@@ -16,15 +15,10 @@ public class Game {
         String nickname;
 
         //Criando todos os Atributos para o Quiz
-        Quiz GameQuiz = new Quiz();
-
-        // Pega a lista de perguntas do repositório
         Repositorio repo = new Repositorio();
         ArrayList<Pergunta> perguntas = repo.getPerguntas();
-
-        GameQuiz.setListaPergunta(perguntas);
-
-        byte respostas[] = new byte[perguntas.size()];
+        Quiz GameQuiz = new Quiz(perguntas);
+       
 
         apresentacao();
         limpatela();
@@ -36,17 +30,12 @@ public class Game {
         LocalDate dt_Jogo = LocalDate.now();
         player.setData(dt_Jogo);
 
-        System.out.println(dt_Jogo);
-        System.out.println("\t\tSeja Bem Vindo " + nickname + "\n"
-                + "\t\t Vamos Iniciar o Quiz\n"
-                + " \t\t Mas antes Deseja Escolher alguma Dificuldade?\n"
-                + "1 - SIM\n"
-                + "2 - NÃO\n");
+        opcaoDif(nickname);
+        
         byte EscolhaDif = sc.nextByte();
 
         if (EscolhaDif == 1) {
             byte dif = player.escolherDificuldade();
-            
 
                 switch (dif) {
                     case 1:
@@ -67,7 +56,7 @@ public class Game {
                 }
             
         } else {
-            respostas = GameQuiz.SorteioPergunta();
+           GameQuiz.SorteioPergunta();
         }
 
         
@@ -91,6 +80,14 @@ public class Game {
         }
     }
 
+    public static void opcaoDif(String nick) {
+        System.out.println("\t\tSeja Bem Vindo " + nick + "\n"
+                + "\t\t Vamos Iniciar o Quiz\n"
+                + " \t\t Mas antes Deseja Escolher alguma Dificuldade?\n"
+                + "1 - SIM\n"
+                + "2 - NÃO\n");
+    }
+    
     public static void limpatela() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
                 + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"

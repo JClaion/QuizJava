@@ -80,5 +80,13 @@ public class Pergunta {
     public void setAlternativas(List<Alternativa> alternativas) {
         this.alternativas = alternativas;
     }
+
+	public ArrayList<Integer> getOrdemSorteio() {
+		return ordemSorteio;
+	}
+
+	public void setOrdemSorteio(ArrayList<Integer> ordemSorteio) {
+		this.ordemSorteio = ordemSorteio;
+	}
 	
 }
