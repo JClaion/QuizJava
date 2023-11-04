@@ -6,6 +6,7 @@ import quiz.repository.Repositorio;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Game {
 
@@ -32,21 +33,27 @@ public class Game {
 
         opcaoDif(nickname);
         
-        byte EscolhaDif = sc.nextByte();
-
+        byte EscolhaDif = -1;
+        while(EscolhaDif != 1 && EscolhaDif != 2)
+        {
+        	EscolhaDif = (byte) tryandCatch(EscolhaDif, sc);
+        }
         if (EscolhaDif == 1) {
             byte dif = player.escolherDificuldade();
 
                 switch (dif) {
                     case 1:
+                    	inicarGame();
                         System.out.println("Dificuldade Selecionada: " + Dificuldade.FACIL);
                         GameQuiz.SorteioPergunta(Dificuldade.FACIL);
                         break;
                     case 2:
+                    	inicarGame();
                         System.out.println("Dificuldade Selecionada: " + Dificuldade.MEDIO);
                         GameQuiz.SorteioPergunta(Dificuldade.MEDIO);
                         break;
                     case 3:
+                    	inicarGame();
                         System.out.println("Dificuldade Selecionada: " + Dificuldade.DIFICIL);
                         GameQuiz.SorteioPergunta(Dificuldade.DIFICIL);
                         break;
@@ -56,6 +63,7 @@ public class Game {
                 }
             
         } else {
+        	inicarGame();
            GameQuiz.SorteioPergunta();
         }
 
@@ -119,5 +127,31 @@ public class Game {
             }
         }
         return false;
+    }
+    public static int tryandCatch(int valor, Scanner scan) {
+    	
+    	while(valor == -1) 
+    	{
+    		try {
+    			valor = scan.nextInt();
+    		}catch(InputMismatchException e) {
+    			System.out.println("Ops .... Isso não e um numero, tente novamente");
+                valor = -1;
+                scan.nextLine();
+                continue;
+    		}
+    	}
+    	
+    	return valor;
+    }
+    public static void inicarGame() {
+    	limpatela();
+    	System.out.println("Inciando em 5 segundos\n Esteja pronto!!!!");
+    	try {
+            Thread.sleep(5000); // 5000 milissegundos = 5 segundos
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    	limpatela();
     }
 }

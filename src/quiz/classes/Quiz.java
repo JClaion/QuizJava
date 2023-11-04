@@ -3,17 +3,18 @@ package quiz.classes;
 import quiz.enums.Dificuldade;
 import java.util.ArrayList;
 import java.util.Random;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Quiz {
 
-    public String nickname;
     private Jogador jogador;
     private ArrayList<Pergunta> listaPergunta;
     private int taxaAcerto;
     private int taxaErro;
     private int tempoResposta;
     private ArrayList<Historico> repo = new ArrayList<>();
+    private Placar placar = new Placar();
 
     public Quiz(ArrayList<Pergunta> perguntas) {
     	this.listaPergunta = perguntas;
@@ -39,13 +40,14 @@ public class Quiz {
             				listaPergunta.get(numeroEscolhido).getOrdemSorteio().get(this.jogador.escolherResposta()))
             		);
             if(repo.get(i).VerificarResposta()) {
-            	System.out.println("Alternativa Correta");
+            	System.out.println("Alternativa Correta\n");
             }
             else {
-            	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao());
+            	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao()+ "\n");
             }
         }
-        
+        System.out.println("Sua pontuação foi de "+ CalcularPontuacao());
+        placar.addPlacar(jogador.getNickname(), CalcularPontuacao(), LocalDate.now());
     }
 
     public void SorteioPergunta(Dificuldade dif) {
@@ -57,7 +59,6 @@ public class Quiz {
             if (dif == this.listaPergunta.get(i).getDificuldade()) {
                 indicesDisponiveis.add(i);
             }
-            System.out.println(indicesDisponiveis.size());
         }
         for (int i = 0; i <= indicesDisponiveis.size(); ++i) {
             numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
@@ -77,16 +78,19 @@ public class Quiz {
             	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao());
             }
         }
+        System.out.println("Sua pontuação foi de "+ CalcularPontuacao()+ " pontos");
+        placar.addPlacar(jogador.getNickname(), CalcularPontuacao(), LocalDate.now());
     }
 
-    public String getNickname() {
-        return nickname;
+    public int CalcularPontuacao() {
+        int pontos = 0;
+        for(byte i=0; i<repo.size(); ++i) {
+        	if(repo.get(i).VerificarResposta())
+        		pontos += repo.get(i).getPergunta().getPontos();
+        }
+        return pontos;
     }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
+    
     public Jogador getJogador() {
         return jogador;
     }
@@ -126,19 +130,16 @@ public class Quiz {
     public void setRepo(ArrayList<Historico> repo) {
         this.repo = repo;
     }
+    
+    public Placar getPlacar() {
+		return placar;
+	}
 
-    public void IniciarJogo() {
+	public void setPlacar(Placar placar) {
+		this.placar = placar;
+	}
 
-    }
+	public void IniciarJogo() {
 
-    public void CalcularPontuacao(ArrayList<Historico> respostas) {
-        int pontos = 0;
-        for (short i = 0; i < respostas.size(); i++) {
-            Historico resp = respostas.get(i);
-            if (resp.getAcertou()) {
-                pontos += resp.getPontuacaoPergunta();
-            }
-        }
-        jogador.setPontuacaoFinal(pontos);
     }
 }

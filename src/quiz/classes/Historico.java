@@ -4,19 +4,18 @@ public class Historico {
 	
 	private Jogador jogador;
 	private Pergunta pergunta;
-	private byte Resposta; 
+	private byte resposta; 
 	private boolean acertou;
-	private int pontuacaoPergunta;
 	
 	public Historico(Jogador player, Pergunta questao, Integer Resposta){
 		this.jogador = player;
 		this.pergunta = questao;
-		this.Resposta = Resposta.byteValue();
+		this.resposta = Resposta.byteValue();
 	}
 	
 	
 	public boolean VerificarResposta(){
-		Alternativa resp = this.pergunta.getAlternativas(this.Resposta);
+		Alternativa resp = this.pergunta.getAlternativas(this.resposta);
 		this.acertou = resp.getCorreta();
 		return this.acertou;
 	}
@@ -43,14 +42,6 @@ public class Historico {
 
 	public void setAcertou(boolean acertou) {
 		this.acertou = acertou;
-	}
-
-	public int getPontuacaoPergunta() {
-		return pontuacaoPergunta;
-	}
-
-	public void setPontuacaoPergunta(int pontuacaoPergunta) {
-		this.pontuacaoPergunta = pontuacaoPergunta;
 	}
 	
 

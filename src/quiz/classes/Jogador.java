@@ -10,9 +10,9 @@ public class Jogador {
 	private Scanner sc = new Scanner(System.in);
 	
 	private String nickname;
-    private int pontuacaoFinal;
+    private String senha;
     private byte acertos;
-    private LocalDate data;
+    private LocalDate dtCriacao;
 
     public byte escolherResposta() {
     	char resposta = '+';
@@ -69,11 +69,11 @@ public class Jogador {
     }
 
     public LocalDate getData() {
-        return data;
+        return dtCriacao;
     }
 
     public void setData(LocalDate data) {
-        this.data = data;
+        this.dtCriacao = data;
     }
 
     public Jogador(String nickname) {
@@ -88,15 +88,23 @@ public class Jogador {
         this.nickname = nickname;
     }
 
-    public int getPontuacaoFinal() {
-        return pontuacaoFinal;
-    }
+    public String getSenha() {
+		return senha;
+	}
 
-    public void setPontuacaoFinal(int pontuacaoFinal) {
-        this.pontuacaoFinal = pontuacaoFinal;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public byte getAcertos() {
+	public LocalDate getDtCriacao() {
+		return dtCriacao;
+	}
+
+	public void setDtCriacao(LocalDate dtCriacao) {
+		this.dtCriacao = dtCriacao;
+	}
+
+	public byte getAcertos() {
         return acertos;
     }
 
