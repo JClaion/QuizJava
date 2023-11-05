@@ -24,15 +24,17 @@ public class Quiz {
         ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
         Random sorteia = new Random();
         Integer numeroEscolhido;
-        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < listaPergunta.size(); ++i) {
             indicesDisponiveis.add(i);
         }
         for (int i = 0; i < listaPergunta.size(); ++i) {
+        	//Sorteia alternativa
             numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
             numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);
             indicesDisponiveis.remove(numeroEscolhido);
+            //Exibe a pergunta sorteada
             System.out.println(listaPergunta.get(numeroEscolhido).getTitulo());
+            //Embaralha as alternativas
             listaPergunta.get(numeroEscolhido).embaralharAlternativas();
             //Já vai adicionando a resposta ao Repo(Repositorio de repostas)
             repo.add(
@@ -43,6 +45,7 @@ public class Quiz {
             	System.out.println("Alternativa Correta\n");
             }
             else {
+            	//busca a resposta correta na lista de perguntas na alternativa de posição 3 (Sempre correta)
             	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao()+ "\n");
             }
         }
@@ -54,16 +57,17 @@ public class Quiz {
         ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
         Random sorteia = new Random();
         Integer numeroEscolhido;
-        Scanner sc = new Scanner(System.in);
         for (int i = 0; i < listaPergunta.size(); ++i) {
             if (dif == this.listaPergunta.get(i).getDificuldade()) {
                 indicesDisponiveis.add(i);
             }
         }
         for (int i = 0; i <= indicesDisponiveis.size(); ++i) {
+        	//Sorteia alternativa
             numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
             numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);
             indicesDisponiveis.remove(numeroEscolhido);
+            //Exibe a pergunta sorteada
             System.out.println(listaPergunta.get(numeroEscolhido).getTitulo());
             listaPergunta.get(numeroEscolhido).embaralharAlternativas();
             //Já vai adicionando a resposta ao Repo(Repositorio de repostas)
@@ -75,6 +79,7 @@ public class Quiz {
             	System.out.println("Alternativa Correta");
             }
             else {
+            	//busca a resposta correta na lista de perguntas na alternativa de posição 3 (Sempre correta)
             	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao());
             }
         }
