@@ -13,63 +13,83 @@ public class Game {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String nickname;
 
         //Criando todos os Atributos para o Quiz
         Repositorio repo = new Repositorio();
         ArrayList<Pergunta> perguntas = repo.getPerguntas();
         Quiz GameQuiz = new Quiz(perguntas);
-       
-
+        
+        Jogador player = new Jogador();
+        GameQuiz.setJogador(player);
+        
         apresentacao();
         limpatela();
-        nickname = pegaNickname(sc);
-
-        Jogador player = new Jogador(nickname);
-        GameQuiz.setJogador(player);
-        //definições Jogador
-        LocalDate dt_Jogo = LocalDate.now();
-        player.setData(dt_Jogo);
-
-        opcaoDif(nickname);
-        
-        byte EscolhaDif = -1;
-        while(EscolhaDif != 1 && EscolhaDif != 2)
-        {
-        	EscolhaDif = (byte) tryandCatch(EscolhaDif, sc);
-        }
-        if (EscolhaDif == 1) {
-            byte dif = player.escolherDificuldade();
-
-                switch (dif) {
-                    case 1:
-                    	inicarGame();
-                        System.out.println("Dificuldade Selecionada: " + Dificuldade.FACIL);
-                        GameQuiz.SorteioPergunta(Dificuldade.FACIL);
-                        break;
-                    case 2:
-                    	inicarGame();
-                        System.out.println("Dificuldade Selecionada: " + Dificuldade.MEDIO);
-                        GameQuiz.SorteioPergunta(Dificuldade.MEDIO);
-                        break;
-                    case 3:
-                    	inicarGame();
-                        System.out.println("Dificuldade Selecionada: " + Dificuldade.DIFICIL);
-                        GameQuiz.SorteioPergunta(Dificuldade.DIFICIL);
-                        break;
-                    default:
-                        System.out.println("Opção inválida");
-                        dif = -1;
-                }
+        do {
+        	System.out.println("Digite seu apelido(nickname) para continuar:");
             
-        } else {
-        	inicarGame();
-           GameQuiz.SorteioPergunta();
-        }
+            do
+            { 
+    	        player.login(pegaNickname(sc));
+            }while(verificarNickname(player.getNickname()));
+            
+            limpatela();
+            
+            //definições Jogador
+            LocalDate dt_Jogo = LocalDate.now();
+            player.setData(dt_Jogo);
 
+            opcaoDif(player.getNickname());
+            
+            byte EscolhaDif = -1;
+            while(EscolhaDif != 1 && EscolhaDif != 2)
+            {
+            	EscolhaDif = (byte) tryandCatch(EscolhaDif, sc);
+            }
+            if (EscolhaDif == 1) {
+                byte dif = player.escolherDificuldade();
+
+                    switch (dif) {
+                        case 1:
+                        	inicarGame();
+                            System.out.println("Dificuldade Selecionada: " + Dificuldade.FACIL);
+                            GameQuiz.SorteioPergunta(Dificuldade.FACIL);
+                            break;
+                        case 2:
+                        	inicarGame();
+                            System.out.println("Dificuldade Selecionada: " + Dificuldade.MEDIO);
+                            GameQuiz.SorteioPergunta(Dificuldade.MEDIO);
+                            break;
+                        case 3:
+                        	inicarGame();
+                            System.out.println("Dificuldade Selecionada: " + Dificuldade.DIFICIL);
+                            GameQuiz.SorteioPergunta(Dificuldade.DIFICIL);
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
+                            dif = -1;
+                    }
+                
+            } else {
+            	inicarGame();
+               GameQuiz.SorteioPergunta();
+            }
+            temporizador(5);
+            limpatela();
+        }while(player.jogarNovamente());
+        
         
     }
 
+    public static void temporizador(int tempo)
+    {	
+    	tempo *= 1000;
+    	try {
+            Thread.sleep(tempo);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static void apresentacao() {
         System.out.print("\n\n\t\t Bem Vindo ao QuizJava \n \n"
                 + ""
@@ -80,12 +100,7 @@ public class Game {
                 + "\tLeander Batista\n"
                 + "\tMatheus pantoja\n"
                 + "\n\t\t Divirta-se :D\n");
-
-        try {
-            Thread.sleep(5000); // 5000 milissegundos = 5 segundos
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        temporizador(5);
     }
 
     public static void opcaoDif(String nick) {
@@ -104,23 +119,22 @@ public class Game {
     }
 
     public static String pegaNickname(Scanner sc) {
-        System.out.println("Vamos começar, mas informe seu Nickname: ");
-
-        String nickname = sc.next();
-        boolean aprovado = verificarNickname(nickname);
-
-        while (aprovado == true) {
-            System.out.println("Ops... Você digitou um nome com símbolos da lista de proibição"
-                    + "\n tente novamente: ");
-            nickname = sc.next();
-            aprovado = verificarNickname(nickname);
-        }
+        String nickname;
+	    nickname = sc.next();
+	    
+	    boolean aprovado = verificarNickname(nickname);
+	    while (aprovado == true) {
+	    	System.out.println("Ops... Você digitou um nome com símbolos da lista de proibição"
+	            + "\n tente novamente: ");
+	        nickname = sc.next();
+	        aprovado = verificarNickname(nickname);
+	    }
         return nickname;
     }
 
     public static boolean verificarNickname(String nickname) {
         String proibicao = "!\"#$%&'()*+,./:;<=>?@[\\]^`{|}~";
-        for (short i = 0; i < nickname.length() - 1; i++) {
+        for (short i = 0; i < nickname.length(); i++) {
 
             if (proibicao.contains(nickname.substring(i, i + 1))) {
                 return true;

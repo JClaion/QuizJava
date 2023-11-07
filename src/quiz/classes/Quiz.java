@@ -21,6 +21,10 @@ public class Quiz {
     }
     
     public void SorteioPergunta() {
+    	//Cada quiz ao seu fim deve ser enviado ao banco de dados
+    	//Então a cada vez que o quiz for jogado o repo será limpado
+    	//para evitar acumulo de memória
+    	repo.clear();
         ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
         Random sorteia = new Random();
         Integer numeroEscolhido;
@@ -54,6 +58,11 @@ public class Quiz {
     }
 
     public void SorteioPergunta(Dificuldade dif) {
+    	//Cada quiz ao seu fim deve ser enviado ao banco de dados
+    	//Então a cada vez que o quiz for jogado o repo será limpado
+    	//para evitar acumulo de memória
+    	repo.clear();
+    	
         ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
         Random sorteia = new Random();
         Integer numeroEscolhido;
@@ -69,6 +78,7 @@ public class Quiz {
             indicesDisponiveis.remove(numeroEscolhido);
             //Exibe a pergunta sorteada
             System.out.println(listaPergunta.get(numeroEscolhido).getTitulo());
+            //Embaralha as alternativas
             listaPergunta.get(numeroEscolhido).embaralharAlternativas();
             //Já vai adicionando a resposta ao Repo(Repositorio de repostas)
             repo.add(
@@ -76,22 +86,22 @@ public class Quiz {
             				listaPergunta.get(numeroEscolhido).getOrdemSorteio().get(this.jogador.escolherResposta()))
             		);
             if(repo.get(i).VerificarResposta()) {
-            	System.out.println("Alternativa Correta");
+            	System.out.println("Alternativa Correta\n");
             }
             else {
             	//busca a resposta correta na lista de perguntas na alternativa de posição 3 (Sempre correta)
-            	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao());
+            	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao()+ "\n");
             }
         }
-        System.out.println("Sua pontuação foi de "+ CalcularPontuacao()+ " pontos");
+        System.out.println("Sua pontuação foi de "+ CalcularPontuacao());
         placar.addPlacar(jogador.getNickname(), CalcularPontuacao(), LocalDate.now());
     }
 
     public int CalcularPontuacao() {
         int pontos = 0;
-        for(byte i=0; i<repo.size(); ++i) {
-        	if(repo.get(i).VerificarResposta())
-        		pontos += repo.get(i).getPergunta().getPontos();
+        for(int i=0; i<this.repo.size(); ++i) {
+        	if(this.repo.get(i).VerificarResposta())
+        		pontos += this.repo.get(i).getPergunta().getPontos();
         }
         return pontos;
     }

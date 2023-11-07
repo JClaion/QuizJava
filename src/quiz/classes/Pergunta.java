@@ -31,7 +31,10 @@ public class Pergunta {
     }
 
     public void embaralharAlternativas() {
-        ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
+    	//Limpa a ordemSorteio para novas rodadas
+    	this.ordemSorteio.clear();
+    	
+    	ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
 
         Random sorteia = new Random();
         Integer numeroEscolhido;
@@ -42,7 +45,7 @@ public class Pergunta {
         for (int i = 0; i < alternativas.size(); i++) {
             numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
             numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);
-            ordemSorteio.add((int) numeroEscolhido);
+            this.ordemSorteio.add((int) numeroEscolhido);
             indicesDisponiveis.remove(numeroEscolhido);
             System.out.print(i+1 + " - ");
             System.out.println(alternativas.get(numeroEscolhido).getDescricao());
@@ -82,7 +85,7 @@ public class Pergunta {
     }
 
 	public ArrayList<Integer> getOrdemSorteio() {
-		return ordemSorteio;
+		return this.ordemSorteio;
 	}
 
 	public void setOrdemSorteio(ArrayList<Integer> ordemSorteio) {
