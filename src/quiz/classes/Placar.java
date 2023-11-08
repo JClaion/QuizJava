@@ -16,10 +16,14 @@ public class Placar {
 		this.dtJogo.add(data);
 	}
 	public void mostrarDados()
-	{
+	{	
+		if(jogador.isEmpty()) {
+			System.out.println("Placar está vazio");
+			return;
+		}
 		for(byte i=0; i < jogador.size(); ++i)
 		{
-			System.out.println(i+1 + jogador.get(i) + "\t" + pontuacaoFinal.get(i) + "\t" + dtJogo.get(i));
+			System.out.println(i+1 +"\t"+ jogador.get(i) + "\t" + pontuacaoFinal.get(i) + "\t" + dtJogo.get(i));
 		}
 	}
 	
