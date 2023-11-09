@@ -22,7 +22,7 @@ public class Placar {
 			return;
 		}
 		for(byte i=0; i < jogador.size(); ++i)
-		{
+		{	
 			System.out.println(i+1 +"\t"+ jogador.get(i) + "\t" + pontuacaoFinal.get(i) + "\t" + dtJogo.get(i));
 		}
 	}

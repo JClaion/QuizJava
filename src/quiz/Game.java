@@ -35,7 +35,11 @@ public class Game {
 			
 			if(opc == 2)
 				break;
-			
+			else if(opc != 1 && opc != 2)
+			{
+				System.out.println("Opção Invalida");
+				continue;
+			}
 			System.out.println("Digite seu apelido(nickname) para continuar:");
 			do {
 				player.login(pegaNickname(sc));
@@ -95,9 +99,13 @@ public class Game {
 				if (escolha == 2) {
 					limpatela();
 					GameQuiz.getPlacar().mostrarDados();
-					System.out.println("Aperte Qualquer tecla para continuar e depois aperte enter:");
+					System.out.println("\nAperte Qualquer tecla para continuar e depois aperte enter:");
 					if (sc.next().length() >= -1)
 						limpatela();
+				}
+				else {
+					System.out.println("Opção invalida");
+					continue;
 				}
 			}
 		}
