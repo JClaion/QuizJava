@@ -21,7 +21,7 @@ public class Game {
 
 		Jogador player = new Jogador();
 		GameQuiz.setJogador(player);
-
+		
 		apresentacao();
 		limpatela();
 
