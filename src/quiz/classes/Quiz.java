@@ -6,26 +6,34 @@ import java.util.Random;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/** Esta classe e a classe de controle
+ * ela e responsavel por boa parte do gerenciamento de
+ * objetos do jogo */
+
 public class Quiz {
 
     private Jogador jogador;
     private ArrayList<Pergunta> listaPergunta;
     private int taxaAcerto;
     private int taxaErro;
-    private int tempoResposta;
     private ArrayList<Historico> repo = new ArrayList<>();
     private Placar placar = new Placar();
 
     public Quiz(ArrayList<Pergunta> perguntas) {
     	this.listaPergunta = perguntas;
     }
-    
     public void SorteioPergunta() {
+    	/**Este método serve para iniciar o jogo além de embaralhar as alternativas*/
+    	
     	//Cada quiz ao seu fim deve ser enviado ao banco de dados
     	//Então a cada vez que o quiz for jogado o repo será limpado
-    	//para evitar acumulo de memória
+    	//para evitar acumulo de memória | Reset de algumas variaveis
+    	//Para manter a integridade dos dados
     	repo.clear();
-        ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
+    	this.taxaAcerto = 0;
+    	this.taxaErro = 0;
+    	
+    	ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
         Random sorteia = new Random();
         Integer numeroEscolhido;
         for (int i = 0; i < listaPergunta.size(); ++i) {
@@ -45,7 +53,8 @@ public class Quiz {
             		new Historico(this.jogador, listaPergunta.get(numeroEscolhido), 
             				listaPergunta.get(numeroEscolhido).getOrdemSorteio().get(this.jogador.escolherResposta()))
             		);
-            if(repo.get(i).VerificarResposta()) {
+            repo.get(i).registraAcerto();
+            if(repo.get(i).getAcertou()) {
             	System.out.println("Alternativa Correta\n");
             }
             else {
@@ -53,8 +62,14 @@ public class Quiz {
             	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao()+ "\n");
             }
         }
-        System.out.println("Sua pontuação foi de "+ CalcularPontuacao());
-        placar.addPlacar(jogador.getNickname(), CalcularPontuacao(), LocalDate.now());
+        System.out.println("Sua pontuação foi de "+ calcularPontuacao()+ " Pontos");
+        
+        calcularTaxas((short) repo.size());
+        
+        this.taxaErro = 100 - this.taxaAcerto;
+        
+        System.out.println("Sua taxa de Acerto foi de "+this.taxaAcerto+"%");
+        placar.addPlacar(jogador.getNickname(), calcularPontuacao(), LocalDate.now());
     }
 
     public void SorteioPergunta(Dificuldade dif) {
@@ -62,6 +77,8 @@ public class Quiz {
     	//Então a cada vez que o quiz for jogado o repo será limpado
     	//para evitar acumulo de memória
     	repo.clear();
+    	this.taxaAcerto = 0;
+    	this.taxaErro = 0;
     	
         ArrayList<Integer> indicesDisponiveis = new ArrayList<>();
         Random sorteia = new Random();
@@ -71,6 +88,7 @@ public class Quiz {
                 indicesDisponiveis.add(i);
             }
         }
+        
         for (int i = 0; i <= indicesDisponiveis.size(); ++i) {
         	//Sorteia alternativa
             numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
@@ -85,7 +103,8 @@ public class Quiz {
             		new Historico(this.jogador, listaPergunta.get(numeroEscolhido), 
             				listaPergunta.get(numeroEscolhido).getOrdemSorteio().get(this.jogador.escolherResposta()))
             		);
-            if(repo.get(i).VerificarResposta()) {
+            repo.get(i).registraAcerto();
+            if(repo.get(i).getAcertou()) {
             	System.out.println("Alternativa Correta\n");
             }
             else {
@@ -93,17 +112,31 @@ public class Quiz {
             	System.out.println("Que pena a resposta correta era: "+listaPergunta.get(numeroEscolhido).getAlternativas(2).getDescricao()+ "\n");
             }
         }
-        System.out.println("Sua pontuação foi de "+ CalcularPontuacao());
-        placar.addPlacar(jogador.getNickname(), CalcularPontuacao(), LocalDate.now());
+        System.out.println("Sua pontuação foi de "+ calcularPontuacao()+ " Pontos");
+        
+        calcularTaxas((short) repo.size());
+        
+        System.out.println("Sua taxa de Acerto foi de "+this.taxaAcerto+"%");
+        placar.addPlacar(jogador.getNickname(), calcularPontuacao(), LocalDate.now());
     }
 
-    public int CalcularPontuacao() {
+    public int calcularPontuacao() {
         int pontos = 0;
         for(int i=0; i<this.repo.size(); ++i) {
-        	if(this.repo.get(i).VerificarResposta())
+        	if(repo.get(i).getAcertou())
         		pontos += this.repo.get(i).getPergunta().getPontos();
         }
         return pontos;
+    }
+    
+    public void calcularTaxas(short quantidade) {
+    	short acertos = 0;
+    	for(short i=0; i<repo.size(); i++)
+    	{
+    		if(repo.get(i).getAcertou())
+    			acertos++;
+    	}
+    	this.taxaAcerto = (quantidade/acertos)*100;
     }
     
     public Jogador getJogador() {
@@ -153,8 +186,4 @@ public class Quiz {
 	public void setPlacar(Placar placar) {
 		this.placar = placar;
 	}
-
-	public void IniciarJogo() {
-
-    }
 }

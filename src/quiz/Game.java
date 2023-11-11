@@ -27,7 +27,7 @@ public class Game {
 
 		while (true) {
 			
-			System.out.println("1 - Fazer login\n"
+			System.out.println("1 - Fazer login | Cadastro\n"
 					+ "2 - Sair do Jogo");
 			
 			byte opc = -1;
@@ -98,6 +98,7 @@ public class Game {
 				}
 				if (escolha == 2) {
 					limpatela();
+					GameQuiz.getPlacar().ordenarPlacar();
 					GameQuiz.getPlacar().mostrarDados();
 					System.out.println("\nAperte Qualquer tecla para continuar e depois aperte enter:");
 					if (sc.next().length() >= -1)

@@ -14,10 +14,9 @@ public class Historico {
 	}
 	
 	
-	public boolean VerificarResposta(){
+	public void registraAcerto(){
 		Alternativa resp = this.pergunta.getAlternativas(this.resposta);
 		this.acertou = resp.getCorreta();
-		return this.acertou;
 	}
 
 	public Jogador getJogador() {
