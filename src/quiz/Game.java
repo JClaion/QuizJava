@@ -55,10 +55,14 @@ public class Game {
 				if (escolha == 1) {
 					limpatela();
 					opcaoDif(player.getNickname());
-
+					sc.nextLine();
 					byte EscolhaDif = -1;
 					while (EscolhaDif != 1 && EscolhaDif != 2) {
 						EscolhaDif = (byte) tryandCatch(EscolhaDif, sc);
+						if(EscolhaDif != 1 && EscolhaDif != 2) {
+							sc.nextLine();
+							EscolhaDif = -1;
+						}
 					}
 					if (EscolhaDif == 1) {
 						byte dif = player.escolherDificuldade();
@@ -184,8 +188,7 @@ public class Game {
 
 	public static void inicarGame() {
 		limpatela();
-		System.out.println("Inciando em 5 segundos\n Esteja pronto!!!!"
-				+ "\n Caso queira encerrar o quiz basta apertar (x)");
+		System.out.println("Inciando em 5 segundos\n Esteja pronto!!!!\n Caso queira encerrar o quiz basta apertar (x)");
 		try {
 			Thread.sleep(5000); // 5000 milissegundos = 5 segundos
 		} catch (InterruptedException e) {
