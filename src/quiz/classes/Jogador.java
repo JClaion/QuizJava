@@ -29,9 +29,9 @@ public class Jogador {
 	                return 2;
 	            case '4':
 	                return 3;
-	            case 'p':
+	            case 'x':
 	                return -1;
-	            case 'P':
+	            case 'X':
 	                return -1;
 	            default:
 	                System.out.println("Opção invalida, digite uma opção válida");

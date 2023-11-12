@@ -42,6 +42,16 @@ public class Historico {
 	public void setAcertou(boolean acertou) {
 		this.acertou = acertou;
 	}
+
+
+	public byte getResposta() {
+		return resposta;
+	}
+
+
+	public void setResposta(byte resposta) {
+		this.resposta = resposta;
+	}
 	
 
 }

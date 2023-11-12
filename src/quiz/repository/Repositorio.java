@@ -1,10 +1,8 @@
 package quiz.repository;
 
 import quiz.enums.Dificuldade;
-import quiz.classes.Alternativa;
 import quiz.classes.Pergunta;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Repositorio {
 	

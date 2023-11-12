@@ -172,7 +172,7 @@ public class Game {
 			try {
 				valor = scan.nextInt();
 			} catch (InputMismatchException e) {
-				System.out.println("Ops .... Isso não e um numero, tente novamente");
+				System.out.println("Ops .... tente novamente");
 				valor = -1;
 				scan.nextLine();
 				continue;
@@ -184,7 +184,8 @@ public class Game {
 
 	public static void inicarGame() {
 		limpatela();
-		System.out.println("Inciando em 5 segundos\n Esteja pronto!!!!");
+		System.out.println("Inciando em 5 segundos\n Esteja pronto!!!!"
+				+ "\n Caso queira encerrar o quiz basta apertar (x)");
 		try {
 			Thread.sleep(5000); // 5000 milissegundos = 5 segundos
 		} catch (InterruptedException e) {
