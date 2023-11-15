@@ -75,8 +75,8 @@ public class Game {
 							break;
 						case 2:
 							inicarGame();
-							System.out.println("Dificuldade Selecionada: " + Dificuldade.MEDIO);
-							GameQuiz.SorteioPergunta(Dificuldade.MEDIO);
+							System.out.println("Dificuldade Selecionada: " + Dificuldade.MEDIA);
+							GameQuiz.SorteioPergunta(Dificuldade.MEDIA);
 							break;
 						case 3:
 							inicarGame();
@@ -92,10 +92,10 @@ public class Game {
 						inicarGame();
 						GameQuiz.SorteioPergunta();
 					}
-					temporizador(5);
+					temporizador(7);
 					limpatela();
 
-					if (player.jogarNovamente())
+					if (player.voltarMenu())
 						continue;
 					else
 						break;

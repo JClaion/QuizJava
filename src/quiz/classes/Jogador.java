@@ -9,7 +9,7 @@ public class Jogador {
 
 	private Scanner sc = new Scanner(System.in);
 	
-	private String nickname;
+	private String apelido;
     private String senha;
     private byte acertos;
     private LocalDate dtCriacao;
@@ -63,9 +63,9 @@ public class Jogador {
     	return -1;
     }
     
-    public boolean jogarNovamente() {
+    public boolean voltarMenu() {
     	
-    	System.out.println("Deseja jogar novamente?\n"
+    	System.out.println("Deseja Voltar ao menu?\n"
     			+ "1 - Sim\n"
     			+ "2 - Não");
     	byte opcao = -1;
@@ -75,7 +75,7 @@ public class Jogador {
                 
             } catch (InputMismatchException e) {
             	
-                System.out.println("Ops .... Isso não e um numero, tente novamente");
+                System.out.println("Ops .... tente novamente");
                 opcao = -1;
                 sc.nextLine();
                 continue;
@@ -93,25 +93,19 @@ public class Jogador {
         }
     	return false;
     }
-
-    public void contadorAcertos(boolean acerto) {
-        if (acerto == true) {
-            this.acertos++;
-        }
-    }
     
     public void login(String apelido){
     	
-    	if(this.nickname == null)
+    	if(this.apelido == null)
     	{
-    		this.nickname = apelido;
+    		this.apelido = apelido;
     	}
     	else {
     		
-    		while(this.nickname.equals(apelido)) 
+    		while(this.apelido.equals(apelido)) 
     		{
     			System.out.println("Seja bem vindo de volta "
-    		+ this.nickname +"\nDigite sua senha:");
+    		+ this.apelido +"\nDigite sua senha:");
     			String senha;
     			//limpa buffer
     			sc.nextLine();
@@ -157,14 +151,14 @@ public class Jogador {
 	    		
 	    	}catch(InputMismatchException e) {
 	    		
-	    		System.out.println("Ops .... Isso não e um numero, tente novamente");
+	    		System.out.println("Ops .... tente novamente");
 	    		opcao = -1;
 	    		sc.nextLine();
 	    		continue;
 	    	}
     		if(opcao == 1)
     		{
-    			this.nickname = apelido;
+    			this.apelido = apelido;
     			System.out.println("Crie uma senha com 8 digitos:");
     			String senha;
     			//limpando buffer
@@ -181,13 +175,13 @@ public class Jogador {
     		{
     			System.out.println("Digite o novo nickname: ");
     			apelido = sc.next();
-    			if(this.nickname.equals(apelido))
+    			if(this.apelido.equals(apelido))
     			{
-    				login(this.nickname);
+    				login(this.apelido);
     				return;
     			}
     			else
-    				this.nickname = apelido;
+    				this.apelido = apelido;
     			
     			System.out.println("Deseja criar uma conta com esse apelido?\n"
     					+"1 - Sim\n"
@@ -214,11 +208,11 @@ public class Jogador {
 
 
     public String getNickname() {
-        return nickname;
+        return apelido;
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname;
+        this.apelido = nickname;
     }
 
     public String getSenha() {

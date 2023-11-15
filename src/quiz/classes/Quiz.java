@@ -144,6 +144,7 @@ public class Quiz {
 			if (repo.get(i).getAcertou())
 				acertos++;
 		}
+		jogador.setAcertos((byte) acertos);
 		if(acertos == 0 || quantidade == 0)
 			return;
 		this.taxaAcerto = (quantidade / acertos) * 100;

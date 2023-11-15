@@ -17,7 +17,7 @@ public class Pergunta {
         this.titulo = titulo;
         this.dificuldade = dificuldade;
         if (dificuldade == Dificuldade.FACIL) this.pontos = 5;
-        if (dificuldade == Dificuldade.MEDIO) this.pontos = 10;
+        if (dificuldade == Dificuldade.MEDIA) this.pontos = 10;
         if (dificuldade == Dificuldade.DIFICIL) this.pontos = 15;
     }
     
