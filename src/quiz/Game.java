@@ -96,7 +96,10 @@ public class Game {
 					limpatela();
 
 					if (player.voltarMenu())
+					{
+						limpatela();
 						continue;
+					}
 					else
 						break;
 				}

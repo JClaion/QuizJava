@@ -206,7 +206,6 @@ public class Jogador {
         this.dtCriacao = data;
     }
 
-
     public String getNickname() {
         return apelido;
     }
