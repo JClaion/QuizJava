@@ -128,7 +128,7 @@ public class Repositorio {
 		            new Pergunta("Quais são os modificadores de visibilidade em Java?", Dificuldade.MEDIA)
 		                .addAlternativa("public, private, global, local")
 		                .addAlternativa("open, closed, restricted, shared")
-		                .addAlternativa("public, protected, private, internal", true)
+		                .addAlternativa("public, protected, private, default", true)
 		                .addAlternativa("visible, hidden, private, public")
 		);
 	

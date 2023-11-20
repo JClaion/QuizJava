@@ -11,7 +11,7 @@ public class Jogador {
 	
 	private String apelido;
     private String senha;
-    private byte acertos;
+    private short acertos;
     private LocalDate dtCriacao;
 
     
@@ -230,11 +230,11 @@ public class Jogador {
 		this.dtCriacao = dtCriacao;
 	}
 
-	public byte getAcertos() {
+	public short getAcertos() {
         return acertos;
     }
 
-    public void setAcertos(byte acertos) {
+    public void setAcertos(short acertos) {
         this.acertos = acertos;
     }
 }

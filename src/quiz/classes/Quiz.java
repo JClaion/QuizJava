@@ -8,7 +8,7 @@ import java.time.LocalDate;
 /**
  * Esta classe e a classe de controle ela e responsavel por boa parte do
  * gerenciamento de objetos do jogo
- */
+ **/
 
 public class Quiz {
 
@@ -23,8 +23,8 @@ public class Quiz {
 		this.listaPergunta = perguntas;
 	}
 
+	/** Este método serve para iniciar o jogo além de embaralhar as perguntas e alternativas **/
 	public void SorteioPergunta() {
-		/** Este método serve para iniciar o jogo além de embaralhar as alternativas */
 
 		// Cada quiz ao seu fim deve ser enviado ao banco de dados
 		// Então a cada vez que o quiz for jogado o repo será limpado
@@ -41,7 +41,7 @@ public class Quiz {
 			indicesDisponiveis.add(i);
 		}
 		for (int i = 0; i < listaPergunta.size(); ++i) {
-			// Sorteia alternativa
+			// Sorteia pergunta
 			numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
 			numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);
 			indicesDisponiveis.remove(numeroEscolhido);
@@ -95,8 +95,8 @@ public class Quiz {
 			}
 		}
 
-		for (int i = 0; i <= indicesDisponiveis.size(); ++i) {
-			// Sorteia alternativa
+		for (int i = 0; i < listaPergunta.size(); ++i) {
+			// Sorteia pergunta
 			numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
 			numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);
 			indicesDisponiveis.remove(numeroEscolhido);
@@ -112,6 +112,8 @@ public class Quiz {
 			// Já vai adicionando a resposta ao Repo(Repositorio de repostas)
 			repo.add(new Historico(this.jogador, listaPergunta.get(numeroEscolhido),
 					listaPergunta.get(numeroEscolhido).getOrdemSorteio().get(resp)));
+
+			repo.get(i).registraAcerto();
 			if (repo.get(i).getAcertou()) {
 				System.out.println("Alternativa Correta\n");
 			} else {
@@ -124,6 +126,8 @@ public class Quiz {
 		System.out.println("Sua pontuação foi de " + calcularPontuacao() + " Pontos");
 
 		calcularTaxas((short) repo.size());
+
+		this.taxaErro = 100 - this.taxaAcerto;
 
 		System.out.println("Sua taxa de Acerto foi de " + this.taxaAcerto + "%");
 		placar.addPlacar(jogador.getNickname(), calcularPontuacao(), LocalDate.now());
@@ -144,10 +148,10 @@ public class Quiz {
 			if (repo.get(i).getAcertou())
 				acertos++;
 		}
-		jogador.setAcertos((byte) acertos);
+		jogador.setAcertos(acertos);
 		if(acertos == 0 || quantidade == 0)
 			return;
-		this.taxaAcerto = (quantidade / acertos) * 100;
+		this.taxaAcerto = (int) (((double) acertos/quantidade) * 100);
 	}
 
 	public Jogador getJogador() {

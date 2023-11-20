@@ -130,8 +130,8 @@ public class Game {
 	}
 
 	public static void apresentacao() {
-		System.out.print("\n\n\t\t Bem Vindo ao QuizJava \n \n" + "" + "\tFeito por:\n" + "" + "\tEinstain Duarti\n"
-				+ "\tJosé Claion\n" + "\tLeander Batista\n" + "\tMatheus pantoja\n" + "\n\t\t Divirta-se :D\n");
+		System.out.print("\n\n\t\t Bem Vindo ao QuizJava \n \n" + "" + "\tFeito por:\n" + "" + "\tEinstain Diuari\n"
+				+ "\tJosé Claion\n" + "\tLeander Batista\n" + "\tMatheus Pantoja\n" + "\n\t\t Divirta-se :D\n");
 		temporizador(5);
 	}
 
@@ -192,11 +192,12 @@ public class Game {
 	public static void inicarGame() {
 		limpatela();
 		System.out.println("Inciando em 5 segundos\n Esteja pronto!!!!\n Caso queira encerrar o quiz basta apertar (x)");
-		try {
-			Thread.sleep(5000); // 5000 milissegundos = 5 segundos
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		for(byte i = 5; i>=0; i--)
+		{
+			temporizador(1);
+			System.out.println(i);
 		}
+		
 		limpatela();
 	}
 
