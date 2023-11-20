@@ -111,6 +111,8 @@ public class Game {
 					if (sc.next().length() >= -1)
 						limpatela();
 				}
+				else if(escolha == 3)
+					continue;
 				else {
 					System.out.println("Opção invalida");
 					continue;
