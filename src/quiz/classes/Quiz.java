@@ -95,7 +95,7 @@ public class Quiz {
 			}
 		}
 
-		for (int i = 0; i < listaPergunta.size(); ++i) {
+		for (int i = 0; i <= (listaPergunta.size()-(listaPergunta.size()-indicesDisponiveis.size())); ++i) {
 			// Sorteia pergunta
 			numeroEscolhido = (Integer) sorteia.nextInt(indicesDisponiveis.size());
 			numeroEscolhido = indicesDisponiveis.get(numeroEscolhido);

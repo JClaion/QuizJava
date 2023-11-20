@@ -150,7 +150,7 @@ public class Repositorio {
 		);
 	
 		perguntas.add(
-		            new Pergunta("Qual é a diferença entre um vetor e uma matriz em Java?", Dificuldade.MEDIA)
+		            new Pergunta("Qual é a diferença entre um vetor e uma matriz em Java?", Dificuldade.DIFICIL)
 		                .addAlternativa("Um vetor é mais eficiente em termos de espaço de armazenamento.")
 		                .addAlternativa("Um vetor armazena elementos de tipos diferentes, enquanto uma matriz armazena elementos do mesmo tipo.")
 		                .addAlternativa("Um vetor é unidimensional, enquanto uma matriz pode ser bidimensional ou tridimensional.", true)
@@ -158,7 +158,7 @@ public class Repositorio {
 		);
 	
 		perguntas.add(
-		            new Pergunta("O que é um ArrayList em Java?", Dificuldade.MEDIA)
+		            new Pergunta("O que é um ArrayList em Java?", Dificuldade.DIFICIL)
 		                .addAlternativa("Uma estrutura de dados que armazena elementos de tipos diferentes.")
 		                .addAlternativa(" Um tipo de array convencional com tamanho fixo.")
 		                .addAlternativa("Uma implementação específica da classe List em Java que pode crescer dinamicamente.", true)
@@ -188,7 +188,29 @@ public class Repositorio {
 		                .addAlternativa("Redução de redundância de código.", true)
 		                .addAlternativa("Facilita o polimorfismo.")
 		);
-	    
+		perguntas.add(
+	            new Pergunta("Para que serve um bloco Try-Catch em Java?", Dificuldade.DIFICIL)
+	                .addAlternativa("Definir uma nova variável local")
+	                .addAlternativa("Declarar uma nova classe")
+	                .addAlternativa("Capturar e tratar exceções", true)
+	                .addAlternativa("Definir um novo método")
+		);
+	
+		perguntas.add(
+		    new Pergunta("Dentre essas opções, qual ocupa respectivamente o menor e maior espaço em bits?", Dificuldade.DIFICIL)
+		        .addAlternativa("Int e Bit")
+		        .addAlternativa("Long e Short")
+		        .addAlternativa("Bit e Long", true)
+		        .addAlternativa("Short e Int")
+		);
+	
+		perguntas.add(
+		            new Pergunta("Qual é a principal diferença entre um método e uma função em programação?", Dificuldade.DIFICIL)
+		                .addAlternativa("Um método é uma função que retorna um valor, enquanto uma função não retorna nada.")
+		                .addAlternativa("Um método é utilizado em linguagens de programação orientadas a objetos, enquanto uma função é utilizada em linguagens procedurais.")
+		                .addAlternativa("Um método é uma função definida dentro de uma classe, enquanto uma função é definida fora de qualquer classe.", true)
+		                .addAlternativa("Um método é sempre mais eficiente que uma função em termos de desempenho.")
+		);
         return perguntas;
 	}
 }
